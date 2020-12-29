@@ -1,0 +1,313 @@
+RAPPORT is a tool for generating random sets of point, line, and polygon structures
+for testing geometric algorithms and related geometric applications. The original
+version was created in 2003, and has been updated with this version in 2020, primarily
+adding the ability to output resulting data files in a format that can be read and 
+processed by the Draw3D application. At this point there are certainly more sophicticated
+and robust geometric data generators available; however, RAPPORt does provide for
+generation of some interesting data classes.
+
+1.	Main Menu
+1.1. New - Provides options for generating random objects
+1.2. Open - Opens a data file in Rapport format for previously generated objects
+1.3. Exit - Exits the applicaiton; the upper right corner x also causes exit
+ 
+2.	New Menu
+2.0. Generic Options for New Selection Menus
+	Generation Control:
+		Generations: Target number of objects to be generated
+		Max. attempts: Maximum number of generation attempts for some uncertain generations
+		Random seed1: Default seed for the generation
+		Random seed2: Second default seed for the generation
+		Debug level: 1 - No debug information; 2 - Some debug information; 3 - More detailed information
+		Keep Seeds check box: Selects retaining the random sees across multiple invocations of this selection panel
+		Color: For polygon generations, requests color fill
+	Display Parameters:
+		Display check box: Requests display of generated data
+		Axes check box: Requests display of data axes
+		Unit square: Requests data display in a unit square; many of the generations within the unit square
+		Step: Not in current use
+		Pause: Not in current use
+		FrameSize (Pixels): Size of the data display frame (square)
+		Logical Dimension: Scaling factor for data display
+		Origin Lower Left: Places (0,0) near the lower left corner of the frame
+		Origin Center: Places (0,0) at the center of the displayed frame
+
+2.1. Point Generation Parameters
+		Distribution Options: Uniform, Bivariate Normal, Non-statinary Poisson (MMPP)
+		Number of points to be generated
+		Number of clusters for normal and Poisson generations
+		Standard deviation for normal generations
+		Density for Poisson generations
+
+2.2. Line Generation Parameters
+		Distribution Options: Uniform, Bivariate Normal, Non-statinary Poisson (MMPP)
+		Number of lines to be generated
+		Number of clusters for normal and Poisson generations
+		Standard deviation for normal generations
+		Density for Poisson generations
+
+2.3. PolyLine Generation Parameters
+		Rotate check box: Rotate thru random angle 0 to 2PI and fit to unit square
+		Smooth1 check box: Vertices are ordered by x-coordinate and each two consecutive
+			y-coordinates are divided by the smooth parameter to yield a smoothed y-value
+		Smooth2 check box:
+		X-Uniform: generate vertex x-coordinates with uniform distribution
+		Y-Uniform: generate vertex y-coordinates with uniform distribution
+		X-Normal: generate vertex x-coordinates with normal distribution
+		Y-Normal: generate vertex y-coordinates with normal distribution
+		X-Exponential: generate vertex x-coordinates with exponential distribution
+		Y-Exponential: generate vertex y-coordinates with exponential distribution
+		X-MMPP: generate vertex x-coordinates with non-stationary Poisson MMPP distribution
+		Y-MMPP: generate vertex y-coordinates with non-stationary Poisson MMPP distribution
+		Maximum number of vertices per polyline to be generated. PolyLine selects a number
+			between 4 and this number (inclusive) as the number of vertices to generate.
+		Smooth parameter for Smooth1
+		Standard deviation for normal generations
+		Density for Poisson generations
+
+2.4. Poisson-Line-Field Generation Parameters
+		Number of lines to be generated to create the field
+	
+2.5. Random-Walk Generation Parameters
+		Rand. y incr. - Generate next point as random increment to the y coordinate.
+			X-coordinate increment is fixed to (max. x - min. x) / (number of points)
+		Rand. x and y - Generate next point as random values for x and y in ranges
+			min.x to max.x and min.y to max.y
+		MMPP x and y - Generate next point x and y coordinates with non-stationary Poisson MMPP method
+		X-Uniform button - Use uniform method for random x generation, except for MMPP option
+		Y-Uniform button - Use uniform method for random y generation, except for MMPP option
+		X-Normal button - Use normal method for random x generation, except for MMPP option
+		Y-Normal button - Use normal method for random y generation, except for MMPP option
+		X-Exponential button - Use exponential method for random x generation, except for MMPP option
+		Y-Exponential button - Use exponential method for random y generation, except for MMPP option
+		Number of walk points to be generated
+		Minimum X coordinate value
+		Maximum X coordinate value
+		Minimum Y coordinate value
+		Maximum Y coordinate value
+		Standard deviation for use with normal method only
+		 
+2.6. Shapes
+	Polygon-Random-Points Generation Parameters
+		Generation by Enumeration of all Convex Polygons
+		Generation by Enumeration of all Simple Polygons
+		Generation by Mitchell Algorithm for Convex Polygons
+		Count Convex Polygons Mitchell Algorithm
+		Count Convex K-gons Mitchell Algorithm
+		Count Convex Polygons Improved Mitchell Algorithm
+		Number of random points to be generated
+		Alpha specifies minimum length of combination to be processed (default 3)
+	
+	Polygon-Hull Generation Parameters
+		Unit square method
+			Basic hull method. Generate a set of random points
+ 			in the unit square and find the convex hull.
+		Convex stable sets method
+			Isotropic convex-stable sets. Based on Molchanov and Stoyan:
+			"Statistical Models of Random Polyhedra."
+			Commun. Statist.-Stochastic Models, 12(2) 199-214 (1996).
+		Random disc method
+			Circle hull method. Generate set of random points and
+			generate random circle to select subset for forming hull.
+			Variation of convex hulls of a finite number of points per
+			Molchanov and Stoyan, "Statistical Models of Random Polyhedra."
+			Commun. Statist.-Stochastic Models, 12(2) 199-214 (1996)
+		Unit disc method
+			Alternate circle method.			
+		Incremental convex method
+			Incremental hull method. Generate random triangle.
+			Successivley pick a random edge and replace with a new
+			convex vertex and edges until required size reached.
+		Number of random points to be generated
+		Alpha factor for convex stable sets method
+	
+	Polygon-Cell Generation Parameters
+		Uniform distribution for cell growth selection
+		Exponential distribution for cell growth selection
+		Mixed uniform and exponential distribution for cell growth selection
+		Cell row size
+
+	Polygon-Monotone Generation Parameters
+		Randomize number of vertices check box
+		Maximum number of vertices to be generated
+			
+	Polygon-Star Generation Parameters
+		Uniform angle distribution
+		Exponential angle distribution
+		Markov angle distribution (MMPP)
+		Uniform radius distribution
+		Exponential radius distribution
+		Smooth1 radius
+		Smooth2 radius
+		Number of vertices to be generated
+		Density for Markov, MMPP option
+		Smooth_factor for Smooth1 option
+		Radial expansion rate for smoothing
+		Markov_parameter for Smooth2 option		
+	
+	Polygon-Spiral Generation Parameters
+		Bounded check box - successful only for approximately 8 vertices or less
+		Hash check box - robust generation
+		Randomize # check box - randomize number of vertices
+		Number of vertices to be generated
+		Radial expansion rate
+			 
+	Polygon-Draw Generation Parameters
+		Number of vertices to be entered.
+		(Place cursor on point and click to enter vertices.)
+			
+	Polygon-Test Generation Parameters
+		Hull - generates a predefined polygon
+		Square - generates the unit square boundary
+		
+	Rectangle Generation Parameters
+		Corners button - rectangles defined by coordinates
+			of lower left and upper right corner vertices
+		Center/Extents button - rectangles defined by coordinates
+			of center and width and height extent lengths
+		Corner/Extents - rectangles defined by coordinates
+			of lower left corner and width and height extent lengths
+		Force button adjusts randomly generated vertices to constrain the location
+			of the rectangle to within the unit square
+		Wrap button wraps portion of the generated rectangle outside of the unit square
+			to the opposite within the opposite side
+		Minimum Side Length - lower bound on side length
+		Maximum Side Length - uppoer bound on side length
+		 
+	Ellipse/Circle Generation Parameters
+		Circle button - selects circle generation
+		Ellipse button - selects ellipse generation
+		Offset button - moves the generated circle or ellipse
+			to be within the unit square
+		Trim button - reduces the size of the generated circle or ellipse
+			to bit within the unit square
+		Minimum Length - lower bound for radii length
+		Maximum Length - upper bound for radii length			
+		
+2.7. PolyMaps
+	PolyMap-Cell Generation Parameters
+		Uniform - selects uniform distribution for randomized cell growth
+		Exponential- selects exponential distribution for randomized cell growth
+		Mixed - selects randomly mixed uniform and exponential distribution
+			for randomized cell growth
+		Number of polygons to be created in the cell polymap
+		Cell row size - number of cells in row/column of polymap square
+	
+	PolyMap-Poisson Generation Parameters
+		Alpha factor randomizes the number of lines created per generation. 
+			Used when number of points (lines) is set at zero and then  
+			number of lines is random.poisson(number_of_generations, 4*alpha).
+		Number of points determines the number of lines in the Poisson line field to be generatied
+		
+	PolyMap-PolyLine Generation Parameters
+		Randomize button selects randomizing then number of lines to be generated
+		Number of lines specifies the number (or if randomized the maximum number) of lines to be generated
+	
+	PolyMap-Voronoi Generation Parameters
+		Uniform button specifies use of a uniform distribution for generating the sites
+		Normal button specifies use of a normal distribution for generating the sites
+		Poisson button specifies use of a non-stationary MMPP process for generating the sites
+		Number of points specifies the number of sites to be generated
+		Number of clusters specifies for the normal distribution option the number of site clusters to be generated
+		Standard deviation specifies for the normal distribution the standard deviation to be used
+		Density specifies for the Poisson option the density parameter  
+		
+10. Result Options
+	Object Selector - allows paging thru current group of objects
+	Scale - allows scaling the displayed figure
+	Clicking the cursor in the display figure locates the display center to that point
+
+	File Menu
+		Save Group - Save data for the whole group of objects
+		Save Object - Save data for the current object
+		Print - Print image of the current object
+		Properties - Display generation parameters 
+		Close - Close current displayed set of objects
+		
+	Result Selection Boxes
+		Draw3D Format check box - sets save data format for Draw3D input
+		Save Group - Save data for the whole group of objects (same as Result File Menu option)
+		Save Object - Save data for the current object (same as Result File Menu option)
+		Print - Print image of the current object (same as Result File Menu option)
+		Jpeg - Save current object as Jpeg image
+		Clear - Clear displayed result of triangulation or convex hull actions
+		
+	Result Action Menu
+		Group Metrics (Example output shown below)
+		
+			Timestamp: Oct 25, 2020
+			Seed: 1635422865
+			# Polygons: 5.00 # Points: 20.0 
+	
+			Total # vertices: 100.00
+			Mean # vertices: 20.00
+			Min # vertices: 20.00
+			Max #vertices: 20.00 
+			
+			Std # vertices: 0.00
+			Var # vertices: 0.00
+			Chi2 vertices: 98.00
+			Chi2 inner vertices: 63.1404
+			Chi2 non-corner vertices: 95.9032 
+			
+			Total area: 2.2013
+			Mean area: 0.4403
+			Min area: 0.2992
+			Max area: 0.5116
+			Std area: 0.0833
+			Var area: 0.0069 
+			
+			Total perimeter: 24.7486
+			Mean perimeter: 4.9497
+			Min perimeter: 4.324
+			Max perimeter: 5.6958
+			Std perimeter: 0.5595
+			Var perimeter: 0.313 
+			
+			Total complexity: 1.7384
+			Mean complexity: 0.3477
+			Min complexity: 0.2423
+			Max complexity: 0.4208 
+			Std complexity: 0.0747
+			Var complexity: 0.0056 
+			
+			Total compacity: 3.8401
+			Mean compacity: 0.768
+			Min compacity: 0.6562
+			Max compacity: 0.8298 
+			Std compacity: 0.0704 
+			Var compacity: 0.005 
+			
+			Total simplexity: 0.00 
+			Mean simplexity: 0.00 
+			Min simplexity: 0.2423 
+			Max simplexity: 0.4208 
+			Std simplexity: 0.00
+			Var simplexity: 0.00 
+		
+		Object Metrics (Example output shown below)
+		
+			Timestamp: Oct 25, 2020
+			# vertices: 20
+			convex: false
+			ccw: true
+			cg: (0.50197. 0.37152)
+			area: 0.30
+			hullArea: 0.50
+			areaRatio: 0.60
+			perimeter: 4.70
+			hullPerimeter: 2.85
+			perRatio: 0.61
+			# notches: 8.00
+			frequencey: .99
+			amplitude: 0.39
+			convexity: 0.40
+			compacity: 0.83
+			simplexity: 0.00
+		
+		Convex Hull - Find and display convex hull
+		Triangulate - Triangulate polygon and display
+		Scale to Unit Square - Scale the current figure to the unit square
+		Polar Diagram - Find and display polar diagram for the current polygon
+		
+	
